@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+    1. document.create_element()
+    2. document.body.appendChi  ld()
+    3. console.dir()
+    4. innerText, id, className, style
+    -->
+    <!-- <h1 id="my-heading">document.create_element()</h1> -->
+    <div id="root"></div>
+
+    <script>
+      const root = document.getElementById("root");
+      const h1 = document.createElement("h1");
+
+      h1.innerText = "Hello you!";
+      h1.id = "Heading";
+      h1.className = "test class-2";
+      h1.style = "color: red; font-size: 50px; background-color: black;";
+
+      root.appendChild(h1);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://unpkg.com/react@17/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </head>
+  <body>
+    <!-- - React elements
+        - Sử dụng props giống như với attribute   của thẻ HTML
+        - 2 props class, for => className, htmlFor
+        - Phải tuân theo quy ước có sẵn
+    - React components
+        - Sử dụng props giống như đối số cho Function
+        - Tự do đặt tên props
+            - Đặt theo camelCase (con Lac Da)
+            - *Có thể bao gồm dấu gạch ngang
+    - Chú ý:
+        - Prop "key" là prop đặc biệt
+        - Props cơ bản là đối số của Component
+            => Props có thể là bất cứ kiểu dữ liệu gì
+        - Sử dụng destructuring -->
+
+    <div id="app"></div>
+
+    <script type="text/babel">
+      // Posts.js
+      function PostItem(props) {
+        return (
+          <div className="post-item">
+            <img src={props.image} alt={props.title} />
+            <h2 className="post-title">{props.title}</h2>
+            <p className="post-desc">{props.description}</p>
+            <p className="post-published">{props.publishedAt}</p>
+          </div>
+        );
+      }
+
+      // App.js
+      function App() {
+        return (
+          <div id="wrapper">
+            <PostItem
+              title="C#(.NET) - Tương tác với file Excel"
+              image="https://cdn.fullstack.edu.vn/f8-learning/blog_posts/657/61ad504215690.png"
+              description="Bạn có kiến thức ngôn ngữ C#!"
+              publishedAt="Một ngày trước · 5 phút đọc"
+            />
+          </div>
+        );
+      }
+      // index.js
+      ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+  </body>
+</html>
