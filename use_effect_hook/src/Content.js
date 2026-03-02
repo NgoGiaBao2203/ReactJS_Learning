@@ -10,6 +10,7 @@
 //----------------------------
 // 1. callback: gọi sau khi component mounted
 import { useState, useEffect } from "react";
+const tabs = ["posts", "comments", "albums"];
 
 function Content() {
   const [title, setTitle] = useState("");
@@ -26,6 +27,9 @@ function Content() {
   return (
     <div>
       <h1>Cố lên</h1>
+      {tabs.map((tab) => (
+        <button key={tab}>{tab}</button>
+      ))}
       <input value={title} onChange={(e) => setTitle(e.target.value)} />
       <ul>
         {posts.map((post) => (
