@@ -3,7 +3,7 @@ import Content from "./Content";
 function App() {
   useEffect(() => {
     console.log("Mounted");
-  });
+  }, []);
   const [show, setShow] = useState(false);
 
   return (

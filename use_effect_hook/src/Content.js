@@ -9,31 +9,58 @@
 // 3. useEffect(callback, [deps])
 //----------------------------
 // 1. callback: gọi sau khi component mounted
+import { type } from "@testing-library/user-event/dist/type";
 import { useState, useEffect } from "react";
+
 const tabs = ["posts", "comments", "albums"];
 
 function Content() {
   const [title, setTitle] = useState("");
   const [posts, setPosts] = useState([]);
-  // 2. Callback chỉ gọi 1 lần sau khi component mounted
+
+  // Tạo thêm state để lưu tab hiện tại đang được chọn (mặc định là 'posts')
+  const [currentTab, setCurrentTab] = useState("posts");
+
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
+    // Sử dụng template literal để thay đổi API theo tab được chọn
+    fetch(`https://jsonplaceholder.typicode.com/${currentTab}`)
       .then((res) => res.json())
-      .then((posts) => {
-        setPosts(posts);
+      .then((data) => {
+        setPosts(data);
       });
-  }, []);
+  }, [currentTab]); // Thêm currentTab vào deps để mỗi lần click nút là fetch lại data mới
 
   return (
     <div>
       <h1>Cố lên</h1>
       {tabs.map((tab) => (
-        <button key={tab}>{tab}</button>
+        <button
+          key={tab}
+          // Kiểm tra nếu tab đang lặp qua trùng với currentTab trong state thì tô màu
+          style={
+            currentTab === tab
+              ? { backgroundColor: "#6f4e37", color: "white" }
+              : { backgroundColor: "#eee", color: "#333" }
+          }
+          // Lắng nghe sự kiện click để cập nhật lại state currentTab
+          onClick={() => setCurrentTab(tab)}
+        >
+          {tab}
+        </button>
       ))}
-      <input value={title} onChange={(e) => setTitle(e.target.value)} />
+
+      <div style={{ marginTop: "20px" }}>
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Nhập tiêu đề..."
+        />
+      </div>
+
       <ul>
-        {posts.map((post) => (
-          <li key={post.id}>{post.title}</li>
+        {posts.map((item) => (
+          // Lưu ý: JSONPlaceholder trả về 'title' cho posts/albums và 'name' cho comments
+          <li key={item.id}>{item.title || item.name}</li>
         ))}
       </ul>
     </div>
